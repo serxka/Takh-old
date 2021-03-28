@@ -73,13 +73,17 @@ impl<V: Vertex + Copy> MeshBuilder<V> {
 		self
 	}
 
-	pub fn push_quad(mut self, v0: &V, v1: &V, v2: &V, v3: &V) -> Self {
-		self.vertices.reserve(4);
+	// push_quad( (0, 0) (1, 0) (1, 1) (0, 1) )
+	pub fn push_quad(&mut self, v0: &V, v1: &V, v2: &V, v3: &V) {
+		self.vertices.reserve(6);
+		// tri 1
 		self.vertices.push(*v0);
-		self.vertices.push(*v1);
 		self.vertices.push(*v2);
+		self.vertices.push(*v1);
+		// tri 2
+		self.vertices.push(*v0);
 		self.vertices.push(*v3);
-		self
+		self.vertices.push(*v2);
 	}
 
 	pub fn build(self) -> Mesh<V> {
@@ -137,6 +141,60 @@ pub mod data {
 				2,         // number of componenets
 				gl::FLOAT, // data type
 				gl::FALSE, // normalised
+				stride as gl::types::GLint,
+				offset as *const gl::types::GLvoid,
+			);
+		}
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
+	pub struct u8_3 {
+		pub d0: u8,
+		pub d1: u8,
+		pub d2: u8,
+	}
+
+	impl u8_3 {
+		pub const fn new(d0: u8, d1: u8, d2: u8) -> Self {
+			Self { d0, d1, d2 }
+		}
+
+		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
+			gl::EnableVertexAttribArray(location as gl::types::GLuint);
+			gl::VertexAttribPointer(
+				location as gl::types::GLuint,
+				3,                 // number of componenets
+				gl::UNSIGNED_BYTE, // data type
+				gl::FALSE,         // normalised
+				stride as gl::types::GLint,
+				offset as *const gl::types::GLvoid,
+			);
+		}
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
+	pub struct u16_3 {
+		pub d0: u16,
+		pub d1: u16,
+		pub d2: u16,
+	}
+
+	impl u16_3 {
+		pub const fn new(d0: u16, d1: u16, d2: u16) -> Self {
+			Self { d0, d1, d2 }
+		}
+
+		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
+			gl::EnableVertexAttribArray(location as gl::types::GLuint);
+			gl::VertexAttribPointer(
+				location as gl::types::GLuint,
+				3,                  // number of componenets
+				gl::UNSIGNED_SHORT, // data type
+				gl::FALSE,          // normalised
 				stride as gl::types::GLint,
 				offset as *const gl::types::GLvoid,
 			);

@@ -79,7 +79,7 @@ impl Window {
 			};
 			(c, w)
 		};
-		
+
 		// Generate our keypress state map (pressed or release)
 		let mut keypress_map = HashMap::new();
 		for input in GameInput::iter() {
@@ -179,7 +179,7 @@ impl Window {
 		}
 		false
 	}
-	
+
 	pub fn take_events(&mut self) -> Vec<Event> {
 		std::mem::take(&mut self.events)
 	}

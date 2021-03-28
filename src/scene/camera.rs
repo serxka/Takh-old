@@ -4,7 +4,7 @@ use ultraviolet::vec::Vec3;
 pub struct Camera {
 	fov: f32,
 	aspect: f32,
-	pub pos: Vec3,
+	pos: Vec3,
 	face_dir: Vec3,
 	right: Vec3,
 	up_dir: Vec3,
@@ -22,7 +22,7 @@ impl Camera {
 			right: Vec3::new(0.0, 0.0, 0.0),
 			up_dir: Vec3::new(0.0, 1.0, 0.0),
 			pitch: 0.0,
-			yaw: -90.0,
+			yaw: 0.0,
 		};
 		camera.set_fov_deg(fov);
 		camera

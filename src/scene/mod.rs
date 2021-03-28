@@ -10,7 +10,7 @@ use crate::{window, window::GameInput, GlobalState, PlayState, PlayStateNext, Se
 
 use crate::scene::{
 	camera::Camera,
-	world::{ChunkVertex, RenderChunks},
+	world::{ChunkVertex, RenderChunks, Chunk, Voxel},
 };
 
 pub struct BasicScene {
@@ -22,21 +22,20 @@ pub struct BasicScene {
 impl BasicScene {
 	pub fn new(global_state: &mut GlobalState) -> BasicScene {
 		let program = Program::from_shaders(&[
-			Shader::from_file("res/shaders/triangle.vs", ShaderKind::Vertex).expect(""),
-			Shader::from_file("res/shaders/triangle.fs", ShaderKind::Fragement).expect(""),
+			Shader::from_file("res/shaders/chunk.vs", ShaderKind::Vertex).expect(""),
+			Shader::from_file("res/shaders/chunk.fs", ShaderKind::Fragement).expect(""),
 		])
 		.unwrap();
 
 		let atlas = TextureAtlas::new("res/textures/voxel_atlas.png", 1);
 		let mut world_mesh = RenderChunks::new(std::rc::Rc::new(program), atlas);
-		world_mesh.add_mesh(Mesh::new(&[
-			ChunkVertex::new(0.5, 0.5, -1.0, 1.0, 1.0),
-			ChunkVertex::new(-0.5, -0.5, -1.0, 0.0, 0.0),
-			ChunkVertex::new(0.5, -0.5, -1.0, 1.0, 0.0),
-			ChunkVertex::new(-0.5, 0.5, -1.0, 0.0, 1.0),
-			ChunkVertex::new(-0.5, -0.5, -1.0, 0.0, 0.0),
-			ChunkVertex::new(0.5, 0.5, -1.0, 1.0, 1.0),
-		]));
+		
+		let mut chunk = Chunk::new((0,0,0));
+		chunk.set_voxel((0,0,0), Voxel::new(0));
+		chunk.set_voxel((0,1,0), Voxel::new(0));
+		chunk.set_voxel((1,0,0), Voxel::new(0));
+		chunk.set_voxel((0,0,1), Voxel::new(0));
+		world_mesh.add_mesh(chunk.mesh_builder().build());
 
 		let win_size = global_state.window.get_resolution();
 		let camera = Camera::new(
