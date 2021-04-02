@@ -1,6 +1,7 @@
 use crate::render::RenderError;
 
 use std::ffi::CString;
+use std::path::Path;
 
 pub enum ShaderKind {
 	Vertex,
@@ -58,8 +59,8 @@ impl Shader {
 		Ok(Shader { id })
 	}
 
-	pub fn from_file(path: &str, kind: ShaderKind) -> Result<Shader, RenderError> {
-		let source = std::fs::read_to_string(path);
+	pub fn from_file<P: AsRef<Path>>(path: P, kind: ShaderKind) -> Result<Shader, RenderError> {
+		let source = std::fs::read_to_string(path.as_ref());
 		match source {
 			Ok(s) => Self::from_str(&s, kind),
 			Err(e) => Err(RenderError::Shader(format!("io error: {:?}", e))), // stringly typed error ew

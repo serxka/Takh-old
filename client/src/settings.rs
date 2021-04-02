@@ -1,5 +1,6 @@
 use crate::window::GameInput;
 
+use common::config_root;
 use std::collections::{BTreeMap, HashMap};
 use std::fs;
 use std::path::PathBuf;
@@ -30,6 +31,7 @@ impl InputSettings {
 			GameInput::MoveRight => VirtualKeyCode::D,
 			GameInput::FlyUp => VirtualKeyCode::Space,
 			GameInput::FlyDown => VirtualKeyCode::LShift,
+			GameInput::Sprint => VirtualKeyCode::LControl,
 			GameInput::Escape => VirtualKeyCode::Escape,
 		}
 	}
@@ -130,8 +132,9 @@ impl Settings {
 		fs::write(path, stringify.as_bytes())
 	}
 
-	// for when we add proper support for resource paths and shit
 	pub fn settings_path() -> PathBuf {
-		PathBuf::from("./").join("Settings.ron")
+		let mut path = config_root();
+		path.push("Settings.ron");
+		path
 	}
 }

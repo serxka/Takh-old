@@ -13,11 +13,11 @@ pub struct Camera {
 }
 
 impl Camera {
-	pub fn new(fov: f32, aspect: f32) -> Camera {
+	pub fn new(fov: f32, aspect: f32, pos: Vec3) -> Camera {
 		let mut camera = Camera {
 			fov: 1.0,
 			aspect,
-			pos: Vec3::new(0.0, 0.0, 0.0),
+			pos,
 			face_dir: Vec3::new(0.0, 0.0, -1.0),
 			right: Vec3::new(0.0, 0.0, 0.0),
 			up_dir: Vec3::new(0.0, 1.0, 0.0),
@@ -73,7 +73,7 @@ impl Camera {
 	}
 
 	pub fn proj_matrix(&self) -> Mat4 {
-		ultraviolet::projection::rh_yup::perspective_gl(self.fov, self.aspect, 0.1, 100.0)
+		ultraviolet::projection::rh_yup::perspective_gl(self.fov, self.aspect, 0.1, 1000.0)
 	}
 
 	pub fn set_aspect_ratio(&mut self, aspect: f32) {

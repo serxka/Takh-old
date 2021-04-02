@@ -14,6 +14,7 @@ pub enum GameInput {
 	MoveRight,
 	FlyUp,
 	FlyDown,
+	Sprint,
 	Escape,
 }
 
@@ -26,6 +27,7 @@ impl GameInput {
 			GameInput::MoveRight,
 			GameInput::FlyUp,
 			GameInput::FlyDown,
+			GameInput::Sprint,
 			GameInput::Escape,
 		]
 		.iter()
@@ -59,7 +61,7 @@ impl Window {
 		let size = settings.graphics.window_size;
 		let win_builder = winit::window::WindowBuilder::new()
 			.with_decorations(true)
-			.with_inner_size(winit::dpi::LogicalSize::new(size[0] as f64, size[1] as f64))
+			.with_inner_size(winit::dpi::PhysicalSize::new(size[0] as f64, size[1] as f64))
 			.with_resizable(true)
 			.with_title("Voxel");
 
@@ -110,7 +112,7 @@ impl Window {
 
 	pub fn set_resolution(&mut self, size: &[u32; 2]) {
 		self.window
-			.set_inner_size(winit::dpi::LogicalSize::new(size[0] as f64, size[1] as f64));
+			.set_inner_size(winit::dpi::PhysicalSize::new(size[0] as f64, size[1] as f64));
 		self.renderer.viewport(0, 0, size[0], size[1]);
 	}
 

@@ -17,7 +17,7 @@ impl Renderer {
 		let _ = gl::load_with(|s| context.get_proc_address(s));
 		unsafe {
 			gl::Viewport(0, 0, win_size[0] as i32, win_size[1] as i32);
-			gl::ClearColor(0.2, 0.3, 0.3, 0.2);
+			gl::ClearColor(0.257, 0.527, 0.5, 1.0);
 			gl::Enable(gl::CULL_FACE);
 			gl::Enable(gl::DEPTH_TEST);
 			gl::CullFace(gl::BACK);

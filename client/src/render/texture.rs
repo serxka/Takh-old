@@ -1,10 +1,15 @@
+use crate::Error;
+
+use std::path::Path;
+
 pub struct TextureAtlas {
 	id: gl::types::GLuint,
+	pub size: u16,
 }
 
 impl TextureAtlas {
-	pub fn new(file: &str, depth: i32) -> TextureAtlas {
-		let img = image::open(file).expect("couldn't load image").into_rgb8();
+	pub fn new<P: AsRef<Path>>(file: P, depth: i32) -> Result<TextureAtlas, Error> {
+		let img = image::open(file.as_ref())?.into_rgb8();
 
 		let width = img.width() as i32;
 		let height = img.height() as i32 / depth;
@@ -36,7 +41,10 @@ impl TextureAtlas {
 			}
 		}
 
-		TextureAtlas { id }
+		Ok(TextureAtlas {
+			id,
+			size: img.width() as u16,
+		})
 	}
 
 	pub fn bind(&self, slot: u32) {

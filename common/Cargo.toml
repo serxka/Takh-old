@@ -1,0 +1,12 @@
+[package]
+name = "common"
+version = "0.1.0"
+authors = ["serxka <serxka@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+uuid = "0.8"
+noise = "0.7"
+
+[features]
+client = []

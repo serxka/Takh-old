@@ -1,4 +1,4 @@
-use voxel::{settings::Settings, window::Window, GlobalState};
+use takh_client::{settings::Settings, window::Window, GlobalState};
 
 fn main() {
 	// Establish our logger
@@ -19,5 +19,5 @@ fn main() {
 	};
 	// Create our global state struct and run the event loop
 	let global_state = GlobalState { settings, window };
-	voxel::run(global_state, event_loop);
+	takh_client::run(global_state, event_loop);
 }
