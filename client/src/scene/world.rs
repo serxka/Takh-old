@@ -22,55 +22,295 @@ pub fn mesh_builder(chunk: &Chunk) -> MeshBuilder<ChunkVertex> {
 					// Back face
 					if z == 0 || chunk.is_air(x, y, z.saturating_sub(1)) {
 						mesh.push_quad(
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 0 + z as u8, ts, ts, ti),
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 0 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 0 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 0 + z as u8, ts, 0, ti),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								0,
+								0,
+								1,
+								ts,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								0,
+								0,
+								1,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								0,
+								0,
+								1,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								0,
+								0,
+								1,
+								ts,
+								0,
+								ti,
+							),
 						);
 					}
 					// Front face
 					if z == Chunk::DEPTH - 1 || chunk.is_air(x, y, z.saturating_add(1)) {
 						mesh.push_quad(
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 1 + z as u8, ts, 0, ti),
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 1 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 1 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 1 + z as u8, ts, ts, ti),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								0,
+								0,
+								-1,
+								ts,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								0,
+								0,
+								-1,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								0,
+								0,
+								-1,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								0,
+								0,
+								-1,
+								ts,
+								ts,
+								ti,
+							),
 						);
 					}
 					// Left face
 					if x == 0 || chunk.is_air(x.saturating_sub(1), y, z) {
 						mesh.push_quad(
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 0 + z as u8, ts, ts, ti),
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 1 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 1 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 0 + z as u8, ts, 0, ti),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								-1,
+								0,
+								0,
+								ts,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								-1,
+								0,
+								0,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								-1,
+								0,
+								0,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								-1,
+								0,
+								0,
+								ts,
+								0,
+								ti,
+							),
 						);
 					}
 					// Right face
 					if x == Chunk::WIDTH - 1 || chunk.is_air(x.saturating_add(1), y, z) {
 						mesh.push_quad(
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 0 + z as u8, ts, 0, ti),
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 1 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 1 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 0 + z as u8, ts, ts, ti),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								1,
+								0,
+								0,
+								ts,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								1,
+								0,
+								0,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								1,
+								0,
+								0,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								1,
+								0,
+								0,
+								ts,
+								ts,
+								ti,
+							),
 						);
 					}
 					// Bottom face
 					if y == 0 || chunk.is_air(x, y.saturating_sub(1), z) {
 						mesh.push_quad(
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 1 + z as u8, ts, 0, ti),
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 1 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(1 + x as u8, 0 + y as u8, 0 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(0 + x as u8, 0 + y as u8, 0 + z as u8, ts, ts, ti),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								0,
+								1,
+								0,
+								ts,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								1 + z as u8,
+								0,
+								1,
+								0,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								0,
+								1,
+								0,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								0 + y as u8,
+								0 + z as u8,
+								0,
+								1,
+								0,
+								ts,
+								ts,
+								ti,
+							),
 						);
 					}
 					// Top face
 					if y == Chunk::HEIGHT - 1 || chunk.is_air(x, y.saturating_add(1), z) {
 						mesh.push_quad(
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 0 + z as u8, ts, ts, ti),
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 0 + z as u8, 0, ts, ti),
-							&ChunkVertex::new(1 + x as u8, 1 + y as u8, 1 + z as u8, 0, 0, ti),
-							&ChunkVertex::new(0 + x as u8, 1 + y as u8, 1 + z as u8, ts, 0, ti),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								0,
+								-1,
+								0,
+								ts,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								0 + z as u8,
+								0,
+								-1,
+								0,
+								0,
+								ts,
+								ti,
+							),
+							&ChunkVertex::new(
+								1 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								0,
+								-1,
+								0,
+								0,
+								0,
+								ti,
+							),
+							&ChunkVertex::new(
+								0 + x as u8,
+								1 + y as u8,
+								1 + z as u8,
+								0,
+								-1,
+								0,
+								ts,
+								0,
+								ti,
+							),
 						);
 					}
 				}
@@ -118,71 +358,28 @@ impl RenderChunks {
 #[repr(C, packed)]
 pub struct ChunkVertex {
 	pos: data::u8_3,
+	norm: data::i8_3,
 	tex: data::u16_3,
 }
 
 impl ChunkVertex {
-	pub const fn new(d0: u8, d1: u8, d2: u8, d3: u16, d4: u16, d5: u16) -> Self {
+	pub const fn new(
+		d0: u8,
+		d1: u8,
+		d2: u8,
+		d3: i8,
+		d4: i8,
+		d5: i8,
+		d6: u16,
+		d7: u16,
+		d8: u16,
+	) -> Self {
 		Self {
 			pos: data::u8_3::new(d0, d1, d2),
-			tex: data::u16_3::new(d3, d4, d5),
+			norm: data::i8_3::new(d3, d4, d5),
+			tex: data::u16_3::new(d6, d7, d8),
 		}
 	}
-
-	// // Back face
-	// pub const BACK_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(1, 1, 0, 32, 0, 0),
-	// 	ChunkVertex::new(1, 0, 0, 32, 32, 0),
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(0, 1, 0, 0, 0, 0),
-	// 	ChunkVertex::new(1, 1, 0, 32, 0, 0),
-	// ];
-	// // Front face
-	// pub const FRONT_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(0, 0, 1, 0, 32, 0),
-	// 	ChunkVertex::new(1, 0, 1, 32, 32, 0),
-	// 	ChunkVertex::new(1, 1, 1, 32, 0, 0),
-	// 	ChunkVertex::new(1, 1, 1, 32, 0, 0),
-	// 	ChunkVertex::new(0, 1, 1, 0, 0, 0),
-	// 	ChunkVertex::new(0, 0, 1, 0, 32, 0),
-	// ];
-	// // Left face
-	// pub const LEFT_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(0, 0, 1, 32, 32, 0),
-	// 	ChunkVertex::new(0, 1, 1, 32, 0, 0),
-	// 	ChunkVertex::new(0, 1, 1, 32, 0, 0),
-	// 	ChunkVertex::new(0, 1, 0, 0, 0, 0),
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// ];
-	// // Right face
-	// pub const RIGHT_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(1, 1, 1, 32, 0, 0),
-	// 	ChunkVertex::new(1, 0, 1, 32, 32, 0),
-	// 	ChunkVertex::new(1, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(1, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(1, 1, 0, 0, 0, 0),
-	// 	ChunkVertex::new(1, 1, 1, 32, 0, 0),
-	// ];
-	// // Bottom face
-	// pub const BOTTOM_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(1, 0, 1, 32, 0, 0),
-	// 	ChunkVertex::new(0, 0, 1, 0, 0, 0),
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(0, 0, 0, 0, 32, 0),
-	// 	ChunkVertex::new(1, 0, 0, 32, 32, 0),
-	// 	ChunkVertex::new(1, 0, 1, 32, 0, 0),
-	// ];
-	// // Top face
-	// pub const TOP_FACE: [ChunkVertex; 6] = [
-	// 	ChunkVertex::new(0, 1, 0, 0, 0, 0),
-	// 	ChunkVertex::new(0, 1, 1, 0, 32, 0),
-	// 	ChunkVertex::new(1, 1, 1, 32, 32, 0),
-	// 	ChunkVertex::new(1, 1, 1, 32, 32, 0),
-	// 	ChunkVertex::new(1, 1, 0, 32, 0, 0),
-	// 	ChunkVertex::new(0, 1, 0, 0, 0, 0),
-	// ];
 }
 
 impl Vertex for ChunkVertex {
@@ -193,6 +390,9 @@ impl Vertex for ChunkVertex {
 		unsafe { data::u8_3::set_vertex_attrib(stride, location, offset) }
 		let location = 1;
 		let offset = offset + std::mem::size_of::<data::u8_3>();
+		unsafe { data::i8_3::set_vertex_attrib(stride, location, offset) }
+		let location = 2;
+		let offset = offset + std::mem::size_of::<data::i8_3>();
 		unsafe { data::u16_3::set_vertex_attrib(stride, location, offset) }
 	}
 }

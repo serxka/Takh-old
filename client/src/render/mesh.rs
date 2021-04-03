@@ -4,7 +4,6 @@ pub trait Vertex {
 	fn set_vertex_attrib();
 }
 
-#[allow(dead_code)]
 pub struct Mesh<V: Vertex> {
 	vbo: gl::types::GLuint, // vertex buffer object
 	vao: gl::types::GLuint, // vertex array object
@@ -94,27 +93,18 @@ impl<V: Vertex + Copy> MeshBuilder<V> {
 // TODO: proc macro this
 #[allow(dead_code)]
 pub mod data {
-	#[allow(non_camel_case_types)]
-	#[derive(Copy, Clone, Debug)]
-	#[repr(C, packed)]
-	pub struct f32_3 {
-		pub d0: f32,
-		pub d1: f32,
-		pub d2: f32,
-	}
-
-	impl f32_3 {
-		pub const fn new(d0: f32, d1: f32, d2: f32) -> Self {
-			Self { d0, d1, d2 }
+	impl u8_2 {
+		pub const fn new(d0: u8, d1: u8) -> Self {
+			Self { d0, d1 }
 		}
 
 		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
 			gl::EnableVertexAttribArray(location as gl::types::GLuint);
 			gl::VertexAttribPointer(
 				location as gl::types::GLuint,
-				3,         // number of componenets
-				gl::FLOAT, // data type
-				gl::FALSE, // normalised
+				2,                 // number of componenets
+				gl::UNSIGNED_BYTE, // data type
+				gl::FALSE,         // normalised
 				stride as gl::types::GLint,
 				offset as *const gl::types::GLvoid,
 			);
@@ -124,13 +114,13 @@ pub mod data {
 	#[allow(non_camel_case_types)]
 	#[derive(Copy, Clone, Debug)]
 	#[repr(C, packed)]
-	pub struct f32_2 {
-		pub d0: f32,
-		pub d1: f32,
+	pub struct i8_2 {
+		pub d0: i8,
+		pub d1: i8,
 	}
 
-	impl f32_2 {
-		pub const fn new(d0: f32, d1: f32) -> Self {
+	impl i8_2 {
+		pub const fn new(d0: i8, d1: i8) -> Self {
 			Self { d0, d1 }
 		}
 
@@ -139,7 +129,7 @@ pub mod data {
 			gl::VertexAttribPointer(
 				location as gl::types::GLuint,
 				2,         // number of componenets
-				gl::FLOAT, // data type
+				gl::BYTE,  // data type
 				gl::FALSE, // normalised
 				stride as gl::types::GLint,
 				offset as *const gl::types::GLvoid,
@@ -177,6 +167,33 @@ pub mod data {
 	#[allow(non_camel_case_types)]
 	#[derive(Copy, Clone, Debug)]
 	#[repr(C, packed)]
+	pub struct i8_3 {
+		pub d0: i8,
+		pub d1: i8,
+		pub d2: i8,
+	}
+
+	impl i8_3 {
+		pub const fn new(d0: i8, d1: i8, d2: i8) -> Self {
+			Self { d0, d1, d2 }
+		}
+
+		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
+			gl::EnableVertexAttribArray(location as gl::types::GLuint);
+			gl::VertexAttribPointer(
+				location as gl::types::GLuint,
+				3,         // number of componenets
+				gl::BYTE,  // data type
+				gl::FALSE, // normalised
+				stride as gl::types::GLint,
+				offset as *const gl::types::GLvoid,
+			);
+		}
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
 	pub struct u16_3 {
 		pub d0: u16,
 		pub d1: u16,
@@ -195,6 +212,67 @@ pub mod data {
 				3,                  // number of componenets
 				gl::UNSIGNED_SHORT, // data type
 				gl::FALSE,          // normalised
+				stride as gl::types::GLint,
+				offset as *const gl::types::GLvoid,
+			);
+		}
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
+	pub struct f32_2 {
+		pub d0: f32,
+		pub d1: f32,
+	}
+
+	impl f32_2 {
+		pub const fn new(d0: f32, d1: f32) -> Self {
+			Self { d0, d1 }
+		}
+
+		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
+			gl::EnableVertexAttribArray(location as gl::types::GLuint);
+			gl::VertexAttribPointer(
+				location as gl::types::GLuint,
+				2,         // number of componenets
+				gl::FLOAT, // data type
+				gl::FALSE, // normalised
+				stride as gl::types::GLint,
+				offset as *const gl::types::GLvoid,
+			);
+		}
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
+	pub struct u8_2 {
+		pub d0: u8,
+		pub d1: u8,
+	}
+
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone, Debug)]
+	#[repr(C, packed)]
+	pub struct f32_3 {
+		pub d0: f32,
+		pub d1: f32,
+		pub d2: f32,
+	}
+
+	impl f32_3 {
+		pub const fn new(d0: f32, d1: f32, d2: f32) -> Self {
+			Self { d0, d1, d2 }
+		}
+
+		pub unsafe fn set_vertex_attrib(stride: usize, location: usize, offset: usize) {
+			gl::EnableVertexAttribArray(location as gl::types::GLuint);
+			gl::VertexAttribPointer(
+				location as gl::types::GLuint,
+				3,         // number of componenets
+				gl::FLOAT, // data type
+				gl::FALSE, // normalised
 				stride as gl::types::GLint,
 				offset as *const gl::types::GLvoid,
 			);

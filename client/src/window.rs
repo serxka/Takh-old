@@ -61,7 +61,10 @@ impl Window {
 		let size = settings.graphics.window_size;
 		let win_builder = winit::window::WindowBuilder::new()
 			.with_decorations(true)
-			.with_inner_size(winit::dpi::PhysicalSize::new(size[0] as f64, size[1] as f64))
+			.with_inner_size(winit::dpi::PhysicalSize::new(
+				size[0] as f64,
+				size[1] as f64,
+			))
 			.with_resizable(true)
 			.with_title("Voxel");
 
@@ -111,9 +114,12 @@ impl Window {
 	}
 
 	pub fn set_resolution(&mut self, size: &[u32; 2]) {
-		self.window
-			.set_inner_size(winit::dpi::PhysicalSize::new(size[0] as f64, size[1] as f64));
+		self.window.set_inner_size(winit::dpi::PhysicalSize::new(
+			size[0] as f64,
+			size[1] as f64,
+		));
 		self.renderer.viewport(0, 0, size[0], size[1]);
+		self.renderer.framebuffer.resize(size[0], size[1]);
 	}
 
 	pub fn get_resolution(&self) -> (u32, u32) {
@@ -137,6 +143,7 @@ impl Window {
 				WindowEvent::CloseRequested => self.events.push(Event::Close),
 				WindowEvent::Resized(s) => {
 					self.renderer.viewport(0, 0, s.width, s.height);
+					self.renderer.framebuffer.resize(s.width, s.height);
 					self.events.push(Event::Resize([s.width, s.height]));
 				}
 				WindowEvent::KeyboardInput { input, .. } => {

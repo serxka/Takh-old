@@ -62,12 +62,12 @@ impl BasicScene {
 				);
 			}
 		}
-		
+
 		let win_size = global_state.window.get_resolution();
 		let camera = Camera::new(
 			global_state.settings.graphics.fov,
 			win_size.0 as f32 / win_size.1 as f32,
-			ultraviolet::vec::Vec3::new(0.0, 20.0, 0.0)
+			ultraviolet::vec::Vec3::new(0.0, 20.0, 0.0),
 		);
 
 		Ok(BasicScene {

@@ -99,7 +99,7 @@ impl Program {
 		// Check for error and get as string
 		let mut success: gl::types::GLint = 1;
 		unsafe {
-			gl::GetProgramiv(id, gl::COMPILE_STATUS, &mut success);
+			gl::GetProgramiv(id, gl::LINK_STATUS, &mut success);
 			if success == 0 {
 				// Get the length of the log
 				let mut len: gl::types::GLint = 0;

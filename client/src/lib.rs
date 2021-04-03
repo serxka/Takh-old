@@ -94,10 +94,12 @@ fn handle_main_events_cleared(
 
 	if let Some(top) = states.last_mut() {
 		let renderer = global_state.window.renderer_mut();
-		// Clear the screen
-		renderer.clear();
-		// Draw the frame
+		// Bind our framebuffer
+		renderer.framebuffer.bind();
+		// Draw onto the framebuffer
 		top.draw(&global_state.settings);
+		// Draw our framebuffer with post processing
+		renderer.framebuffer.draw();
 		// Flush to the screen
 		global_state.window.swap_buffers();
 	}
