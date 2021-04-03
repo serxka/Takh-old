@@ -39,23 +39,29 @@ impl BasicScene {
 		let mut palette = Palette::new();
 		palette.add_voxel(voxel::Voxel::new_full(VoxelTexture::Single { faces: tex_id }));
 
-		let size: i32 = 16;
+		let size: i32 = 4;
+
+		let start = std::time::Instant::now();
 
 		let mut chunks = Vec::with_capacity((size * size) as usize);
 		for x in -size..size {
 			for z in -size..size {
-				chunks.push(generate_chunk(x, 0, z, palette.clone()));
-				let chunk = chunks.last().unwrap();
-				world_mesh.add_mesh(
-					world::mesh_builder(chunk).build(),
-					(
-						(chunk.coord.0 * Chunk::WIDTH as i32) as f32,
-						(chunk.coord.1 * Chunk::HEIGHT as i32) as f32,
-						(chunk.coord.2 * Chunk::DEPTH as i32) as f32,
-					),
-				);
+				for y in -size/2..size/2 {
+					chunks.push(generate_chunk(x, y, z, palette.clone()));
+					let chunk = chunks.last().unwrap();
+					world_mesh.add_mesh(
+						world::mesh_builder(chunk).build(),
+						(
+							(chunk.coord.0 * Chunk::WIDTH as i32) as f32,
+							(chunk.coord.1 * Chunk::HEIGHT as i32) as f32,
+							(chunk.coord.2 * Chunk::DEPTH as i32) as f32,
+						),
+					);
+				}
 			}
 		}
+
+		println!("took {:?}", start.elapsed());
 
 		let win_size = global_state.window.get_resolution();
 		let camera = Camera::new(
