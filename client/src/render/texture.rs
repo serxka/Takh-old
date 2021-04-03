@@ -22,9 +22,7 @@ impl TextureAtlas {
 
 			gl::TextureStorage3D(id, 1, gl::RGB8, width, height, depth as i32);
 			for i in 0..depth {
-				let ptr = img
-					.as_ptr()
-					.offset((width * height * 3 * i as i32) as isize);
+				let ptr = img.as_ptr().offset((width * height * 3 * i as i32) as isize);
 				gl::TextureSubImage3D(
 					id,
 					0,

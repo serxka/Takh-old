@@ -100,7 +100,6 @@ impl Framebuffer {
 			);
 			gl::RenderbufferStorage(gl::RENDERBUFFER, gl::DEPTH24_STENCIL8, w as i32, h as i32);
 		}
-		// unimplemented!()
 	}
 
 	/// Bind our framebuffer for off screen drawing of screen

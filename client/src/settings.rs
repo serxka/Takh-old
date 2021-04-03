@@ -95,10 +95,7 @@ impl Settings {
 			match ron::de::from_reader::<_, Self>(file) {
 				Ok(s) => return s,
 				Err(e) => {
-					log::warn!(
-						"failed to parse settings file, falling back to default ({:?})",
-						e
-					);
+					log::warn!("failed to parse settings file, falling back to default ({:?})", e);
 					// rename the old one
 					let mut rename_path = path.clone();
 					rename_path.pop();

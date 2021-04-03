@@ -17,7 +17,7 @@ void main()
 	vec3 ambient = ambient_strength * light_colour;
 	vec3 albedo = texture(u_tex, tex_coord).rgb;
 	
-	vec3 light_dir = normalize(light_pos - frag_pos);
+	vec3 light_dir = normalize(-light_pos/*  - frag_pos */);
 	vec3 diffuse = max(dot(f_norm, light_dir), 0.0) * light_colour;
 	
 	vec3 result = (ambient + diffuse) * albedo;

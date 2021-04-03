@@ -27,14 +27,8 @@ impl BasicScene {
 		let data_root = common::data_root();
 
 		let program = Program::from_shaders(&[
-			Shader::from_file(
-				data_root.join("client/shaders/chunk.vs"),
-				ShaderKind::Vertex,
-			)?,
-			Shader::from_file(
-				data_root.join("client/shaders/chunk.fs"),
-				ShaderKind::Fragement,
-			)?,
+			Shader::from_file(data_root.join("client/shaders/chunk.vs"), ShaderKind::Vertex)?,
+			Shader::from_file(data_root.join("client/shaders/chunk.fs"), ShaderKind::Fragement)?,
 		])?;
 
 		let atlas = TextureAtlas::new(data_root.join("client/textures/voxel_atlas.png"), 1)?;
@@ -43,13 +37,13 @@ impl BasicScene {
 		let tex_id = TextureId::new(world_mesh.atlas.size, 0);
 
 		let mut palette = Palette::new();
-		palette.add_voxel(voxel::Voxel::new_full(VoxelTexture::Single {
-			faces: tex_id,
-		}));
+		palette.add_voxel(voxel::Voxel::new_full(VoxelTexture::Single { faces: tex_id }));
 
-		let mut chunks = Vec::with_capacity(16);
-		for x in -2..2 {
-			for z in -2..2 {
+		let size: i32 = 16;
+
+		let mut chunks = Vec::with_capacity((size * size) as usize);
+		for x in -size..size {
+			for z in -size..size {
 				chunks.push(generate_chunk(x, 0, z, palette.clone()));
 				let chunk = chunks.last().unwrap();
 				world_mesh.add_mesh(
@@ -85,19 +79,13 @@ impl PlayState for BasicScene {
 		self.world_mesh.shader.set_uniform_int("u_tex", 0);
 	}
 
-	fn tick(
-		&mut self,
-		global_state: &mut GlobalState,
-		mut events: Vec<window::Event>,
-	) -> PlayStateNext {
+	fn tick(&mut self, global_state: &mut GlobalState, mut events: Vec<window::Event>) -> PlayStateNext {
 		let mut next_state = PlayStateNext::Continue;
 
 		while let Some(event) = events.pop() {
 			match event {
 				crate::window::Event::Close => next_state = PlayStateNext::Quit,
-				crate::window::Event::Resize([x, y]) => {
-					self.camera.set_aspect_ratio(x as f32 / y as f32)
-				}
+				crate::window::Event::Resize([x, y]) => self.camera.set_aspect_ratio(x as f32 / y as f32),
 				crate::window::Event::MouseMove(x, y) => {
 					if self.cursor_grabbed {
 						self.camera.rotate(x as f32, y as f32)

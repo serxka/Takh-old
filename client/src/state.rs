@@ -15,8 +15,7 @@ pub trait PlayState {
 	/// Called when state is entered, could be from pushing or popping
 	fn enter(&mut self, global_state: &mut GlobalState);
 	/// Tick the state forward
-	fn tick(&mut self, global_state: &mut GlobalState, events: Vec<window::Event>)
-		-> PlayStateNext;
+	fn tick(&mut self, global_state: &mut GlobalState, events: Vec<window::Event>) -> PlayStateNext;
 	/// Draw the state
 	fn draw(&mut self, settings: &Settings);
 }

@@ -14,10 +14,7 @@ pub struct Renderer {
 }
 
 impl Renderer {
-	pub fn new(
-		context: glutin::RawContext<glutin::PossiblyCurrent>,
-		win_size: [u32; 2],
-	) -> Renderer {
+	pub fn new(context: glutin::RawContext<glutin::PossiblyCurrent>, win_size: [u32; 2]) -> Renderer {
 		let _ = gl::load_with(|s| context.get_proc_address(s));
 		if cfg!(debug_assertions) {
 			unsafe {
@@ -43,10 +40,7 @@ impl Renderer {
 		}
 		let framebuffer = Framebuffer::new(win_size[0], win_size[1]);
 
-		Renderer {
-			context,
-			framebuffer,
-		}
+		Renderer { context, framebuffer }
 	}
 
 	pub fn viewport(&mut self, x: i32, y: i32, w: u32, h: u32) {
