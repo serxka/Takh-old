@@ -13,7 +13,7 @@ fn main() {
 	let (window, event_loop) = match Window::new(&settings) {
 		Ok(o) => o,
 		Err(e) => {
-			log::error!("failed to create window: {:?}", e);
+			log::error!("Failed to create window: {:?}.", e);
 			std::process::exit(1);
 		}
 	};
