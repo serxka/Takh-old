@@ -1,5 +1,4 @@
 pub mod error;
-pub mod network;
 pub mod render;
 pub mod scene;
 pub mod settings;
@@ -8,23 +7,28 @@ pub mod window;
 
 pub use crate::error::Error;
 
+use std::sync::Arc;
+
 use crate::{
-	scene::BasicScene,
+	scene::GameScene,
 	settings::Settings,
 	state::{PlayState, PlayStateNext},
 	window::{EventLoop, Window},
 };
 
+use tokio::runtime::Runtime;
+
 pub struct GlobalState {
 	pub settings: Settings,
 	pub window: Window,
+	pub runtime: Arc<Runtime>,
 }
 
 pub fn run(mut global_state: GlobalState, event_loop: EventLoop) -> ! {
 	// Enter our first state
 	let mut states: Vec<Box<dyn PlayState>> = vec![Box::new(
-		BasicScene::new(&mut global_state)
-			.map_err(|e| panic!("failed to create BasicScene: {:#?}", e))
+		GameScene::new(&mut global_state)
+			.map_err(|e| panic!("failed to create GameScene: {:#?}", e))
 			.unwrap(),
 	)];
 	if let Some(top) = states.last_mut() {

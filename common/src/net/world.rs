@@ -1,4 +1,4 @@
-use crate::net::types::VPosition;
+use crate::net::VPosition;
 
 pub enum WorldData {
 	WorldPalette {},

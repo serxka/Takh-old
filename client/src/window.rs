@@ -45,6 +45,8 @@ pub enum Event {
 	MouseMove(f64, f64),
 	/// Input has changed
 	InputChange(GameInput, bool),
+	/// Game Input
+	Input(GameInput),
 }
 
 pub struct Window {
@@ -151,6 +153,7 @@ impl Window {
 								winit::event::ElementState::Released => false,
 							},
 						));
+						self.events.push(Event::Input(game_input));
 					}
 				}
 				_ => {}
@@ -183,6 +186,13 @@ impl Window {
 	}
 
 	pub fn take_events(&mut self) -> Vec<Event> {
+		for (key, _) in self
+			.keypress_map
+			.iter()
+			.filter(|(_, v)| **v == winit::event::ElementState::Pressed)
+		{
+			self.events.push(Event::Input(*key));
+		}
 		std::mem::take(&mut self.events)
 	}
 }

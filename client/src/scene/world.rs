@@ -102,8 +102,8 @@ impl RenderChunks {
 	pub fn render(&self) {
 		self.shader.bind();
 		for (coord, mesh) in &self.meshes {
-			let mut transform = ultraviolet::mat::Mat4::identity();
-			transform.translate(&ultraviolet::vec::Vec3::new(
+			let mut transform = vek::Mat4::identity();
+			transform.translate_3d(vek::Vec3::new(
 				coord.0 as f32,
 				coord.1 as f32,
 				coord.2 as f32,

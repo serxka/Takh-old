@@ -141,7 +141,7 @@ impl Program {
 		}
 	}
 
-	pub fn set_uniform_mat4(&self, name: &str, mat: ultraviolet::mat::Mat4) {
+	pub fn set_uniform_mat4(&self, name: &str, mat: vek::Mat4<f32>) {
 		let cstr = CString::new(name).unwrap();
 		unsafe {
 			gl::ProgramUniformMatrix4fv(
@@ -149,7 +149,7 @@ impl Program {
 				gl::GetUniformLocation(self.id, cstr.as_ptr() as *const gl::types::GLchar),
 				1,
 				gl::FALSE,
-				mat.as_ptr(),
+				mat.as_col_ptr(),
 			);
 		}
 	}

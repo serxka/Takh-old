@@ -95,20 +95,20 @@ impl Settings {
 			match ron::de::from_reader::<_, Self>(file) {
 				Ok(s) => return s,
 				Err(e) => {
-					log::warn!("failed to parse settings file, falling back to default ({:?})", e);
-					// rename the old one
+					log::warn!("Failed to parse settings file, falling back to default: {:?}", e);
+					// Rename the old settings file
 					let mut rename_path = path.clone();
 					rename_path.pop();
-					rename_path.push("settings.ron.inv");
+					rename_path.push("Settings_old.ron");
 					if let Err(e) = fs::rename(&path, &rename_path) {
-						log::warn!("failed to rename invalid settings file ({:?})", e);
+						log::warn!("Failed to rename old settings file: {:?}", e);
 					}
 				}
 			}
 		}
 		let default_settings = Self::default();
 		if let Err(e) = default_settings.save_to_file() {
-			log::warn!("failed to save settings file ({:?})", e);
+			log::warn!("Failed to save settings file: {:?}", e);
 		}
 		default_settings
 	}

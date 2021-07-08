@@ -1,3 +1,5 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use takh_client::{settings::Settings, window::Window, GlobalState};
 
 fn main() {
@@ -17,7 +19,23 @@ fn main() {
 			std::process::exit(1);
 		}
 	};
+	// Create our Async runtime
+	let runtime = std::sync::Arc::new(
+		tokio::runtime::Builder::new_multi_thread()
+			.enable_io()
+			.thread_name_fn(|| {
+				static ATOMIC_THREAD_ID: AtomicUsize = AtomicUsize::new(0);
+				let id = ATOMIC_THREAD_ID.fetch_add(1, Ordering::SeqCst);
+				format!("tokio-runtime-{}", id)
+			})
+			.build()
+			.expect("Failed to build Tokio runtime"),
+	);
 	// Create our global state struct and run the event loop
-	let global_state = GlobalState { settings, window };
+	let global_state = GlobalState {
+		settings,
+		window,
+		runtime,
+	};
 	takh_client::run(global_state, event_loop);
 }

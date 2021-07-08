@@ -1,0 +1,317 @@
+   Compiling takh-client v0.1.0 (/home/milo/projects/Takh/client)
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+ --> client/src/scene/camera.rs:1:5
+  |
+1 | use ultraviolet::mat::Mat4;
+  |     ^^^^^^^^^^^ use of undeclared crate or module `ultraviolet`
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+ --> client/src/scene/camera.rs:2:5
+  |
+2 | use ultraviolet::vec::Vec3;
+  |     ^^^^^^^^^^^ use of undeclared crate or module `ultraviolet`
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+  --> client/src/scene/player.rs:15:5
+   |
+15 | use ultraviolet::{rotor::DRotor3, vec::DVec3};
+   |     ^^^^^^^^^^^ use of undeclared crate or module `ultraviolet`
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+   --> client/src/render/shader.rs:144:50
+    |
+144 |     pub fn set_uniform_mat4(&self, name: &str, mat: ultraviolet::mat::Mat4) {
+    |                                                     ^^^^^^^^^^^ use of undeclared crate or module `ultraviolet`
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+  --> client/src/scene/camera.rs:71:3
+   |
+71 |         ultraviolet::projection::rh_yup::perspective_gl(self.fov, self.aspect, 0.1, 1000.0)
+   |         ^^^^^^^^^^^ use of undeclared crate or module `ultraviolet`
+
+error[E0433]: failed to resolve: use of undeclared type `DVec3`
+  --> client/src/scene/player.rs:91:21
+   |
+91 |         let mut pos_off = DVec3::new(
+   |                           ^^^^^ use of undeclared type `DVec3`
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:7:7
+    |
+7   |       pos: Vec3,
+    |            ^^^^
+    |
+help: a struct with a similar name exists
+    |
+7   |     pos: Vec,
+    |          ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:8:12
+    |
+8   |       face_dir: Vec3,
+    |                 ^^^^
+    |
+help: a struct with a similar name exists
+    |
+8   |     face_dir: Vec,
+    |               ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:9:9
+    |
+9   |       right: Vec3,
+    |              ^^^^
+    |
+help: a struct with a similar name exists
+    |
+9   |     right: Vec,
+    |            ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:10:10
+    |
+10  |       up_dir: Vec3,
+    |               ^^^^
+    |
+help: a struct with a similar name exists
+    |
+10  |     up_dir: Vec,
+    |             ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:20:9
+    |
+20  |               pos: Vec3::new(0.0, 0.0, 0.0),
+    |                    ^^^^
+    |
+help: a struct with a similar name exists
+    |
+20  |             pos: Vec::new(0.0, 0.0, 0.0),
+    |                  ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:21:14
+    |
+21  |               face_dir: Vec3::new(0.0, 0.0, 0.0),
+    |                         ^^^^
+    |
+help: a struct with a similar name exists
+    |
+21  |             face_dir: Vec::new(0.0, 0.0, 0.0),
+    |                       ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:22:11
+    |
+22  |               right: Vec3::new(0.0, 0.0, 0.0),
+    |                      ^^^^
+    |
+help: a struct with a similar name exists
+    |
+22  |             right: Vec::new(0.0, 0.0, 0.0),
+    |                    ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:23:12
+    |
+23  |               up_dir: Vec3::new(0.0, 1.0, 0.0),
+    |                       ^^^^
+    |
+help: a struct with a similar name exists
+    |
+23  |             up_dir: Vec::new(0.0, 1.0, 0.0),
+    |                     ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:31:33
+    |
+31  |       pub fn set_pos(&mut self, pos: Vec3) {
+    |                                      ^^^^
+    |
+help: a struct with a similar name exists
+    |
+31  |     pub fn set_pos(&mut self, pos: Vec) {
+    |                                    ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Vec3` in this scope
+   --> client/src/scene/camera.rs:42:35
+    |
+42  |       pub fn transform(&mut self, off: Vec3) {
+    |                                        ^^^^
+    |
+help: a struct with a similar name exists
+    |
+42  |     pub fn transform(&mut self, off: Vec) {
+    |                                      ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:43:15
+    |
+43  |           self.pos += Vec3::new(self.right.x, 0.0, self.right.z) * off.x;
+    |                       ^^^^
+    |
+help: a struct with a similar name exists
+    |
+43  |         self.pos += Vec::new(self.right.x, 0.0, self.right.z) * off.x;
+    |                     ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:45:15
+    |
+45  |           self.pos += Vec3::new(self.face_dir.x, 0.0, self.face_dir.z).normalized() * off.z;
+    |                       ^^^^
+    |
+help: a struct with a similar name exists
+    |
+45  |         self.pos += Vec::new(self.face_dir.x, 0.0, self.face_dir.z).normalized() * off.z;
+    |                     ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:56:19
+    |
+56  |           self.face_dir = Vec3::new(
+    |                           ^^^^
+    |
+help: a struct with a similar name exists
+    |
+56  |         self.face_dir = Vec::new(
+    |                         ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Vec3`
+   --> client/src/scene/camera.rs:62:36
+    |
+62  |           self.right = self.face_dir.cross(Vec3::new(0.0, 1.0, 0.0)).normalized();
+    |                                            ^^^^
+    |
+help: a struct with a similar name exists
+    |
+62  |         self.right = self.face_dir.cross(Vec::new(0.0, 1.0, 0.0)).normalized();
+    |                                          ^^^
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error[E0412]: cannot find type `Mat4` in this scope
+  --> client/src/scene/camera.rs:66:31
+   |
+66 |     pub fn view_matrix(&self) -> Mat4 {
+   |                                  ^^^^ not found in this scope
+   |
+help: consider importing one of these items
+   |
+1  | use vek::Mat4;
+   |
+1  | use vek::row_major::Mat4;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `Mat4`
+  --> client/src/scene/camera.rs:67:3
+   |
+67 |         Mat4::look_at(self.pos, self.pos + self.face_dir, self.up_dir)
+   |         ^^^^ not found in this scope
+   |
+help: consider importing one of these items
+   |
+1  | use vek::Mat4;
+   |
+1  | use vek::row_major::Mat4;
+   |
+
+error[E0412]: cannot find type `Mat4` in this scope
+  --> client/src/scene/camera.rs:70:31
+   |
+70 |     pub fn proj_matrix(&self) -> Mat4 {
+   |                                  ^^^^ not found in this scope
+   |
+help: consider importing one of these items
+   |
+1  | use vek::Mat4;
+   |
+1  | use vek::row_major::Mat4;
+   |
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+   --> client/src/scene/world.rs:105:42
+    |
+105 |             let mut transform = ultraviolet::mat::Mat4::identity();
+    |                                                   ^^^^ not found in `ultraviolet::mat`
+    |
+help: consider importing one of these items
+    |
+1   | use vek::Mat4;
+    |
+1   | use vek::row_major::Mat4;
+    |
+
+error[E0433]: failed to resolve: use of undeclared crate or module `ultraviolet`
+   --> client/src/scene/world.rs:106:43
+    |
+106 |             transform.translate(&ultraviolet::vec::Vec3::new(
+    |                                                    ^^^^ not found in `ultraviolet::vec`
+    |
+help: consider importing this struct
+    |
+1   | use vek::Vec3;
+    |
+
+error: aborting due to 25 previous errors
+
+Some errors have detailed explanations: E0412, E0433.
+For more information about an error, try `rustc --explain E0412`.
+error: could not compile `takh-client`
+
+To learn more, run the command again with --verbose.

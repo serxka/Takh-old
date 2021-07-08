@@ -13,8 +13,15 @@ gl = { path = "./src/opengl" }
 glutin = "0.26"
 winit = { version = "0.24", features = ["serde"] }
 
+# Game Logic
+specs = "0.16"
+
+# Async
+tokio = { version = "1.4", features = ["rt-multi-thread", "net"] }
+
 # Math
-ultraviolet = "0.8"
+# ultraviolet = "0.8"
+vek = "0.15"
 
 # File
 image = "0.23"

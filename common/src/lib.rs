@@ -1,7 +1,17 @@
+pub mod components;
+pub mod ecsres;
 pub mod net;
+pub mod state;
+pub mod sys;
 pub mod world;
 
 use std::path::{Path, PathBuf};
+
+#[derive(Copy, Clone)]
+pub enum Gamemode {
+	Client,
+	Server,
+}
 
 /// This retures the root of the game data path.
 /// For example in it may return `$TAKH_GAMEDATA/`,

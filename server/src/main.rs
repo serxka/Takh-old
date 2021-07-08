@@ -1,3 +1,10 @@
+use takh_server::{settings::Settings, Server};
+
 fn main() {
-	println!("asdasd");
+	let settings = Settings::load();
+	let mut server = Server::new(settings);
+
+	loop {
+		server.tick();
+	}
 }

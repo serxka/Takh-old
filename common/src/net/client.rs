@@ -1,4 +1,4 @@
-use crate::net::types::{Face, Position, Rotation, VPosition};
+use crate::net::{Face, Position, Rotation, VPosition};
 
 pub enum ServerBound {
 	Auth(Auth),

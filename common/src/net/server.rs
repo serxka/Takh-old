@@ -1,7 +1,4 @@
-use crate::net::{
-	types::{EntityID, Position, Rotation, VPosition},
-	world::WorldData,
-};
+use crate::net::{world::WorldData, EntityID, Position, Rotation, VPosition};
 
 use uuid::Uuid;
 

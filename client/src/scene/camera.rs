@@ -1,24 +1,25 @@
-use ultraviolet::mat::Mat4;
-use ultraviolet::vec::Vec3;
+// use ultraviolet::mat::Mat4;
+// use ultraviolet::vec::Vec3;
+use vek::{Vec3, Mat4};
 
 pub struct Camera {
 	fov: f32,
 	aspect: f32,
-	pos: Vec3,
-	face_dir: Vec3,
-	right: Vec3,
-	up_dir: Vec3,
+	pos: Vec3<f32>,
+	face_dir: Vec3<f32>,
+	right: Vec3<f32>,
+	up_dir: Vec3<f32>,
 	pitch: f32,
 	yaw: f32,
 }
 
 impl Camera {
-	pub fn new(fov: f32, aspect: f32, pos: Vec3) -> Camera {
+	pub fn new(fov: f32, aspect: f32) -> Camera {
 		let mut camera = Camera {
 			fov: 1.0,
 			aspect,
-			pos,
-			face_dir: Vec3::new(0.0, 0.0, -1.0),
+			pos: Vec3::new(0.0, 0.0, 0.0),
+			face_dir: Vec3::new(0.0, 0.0, 0.0),
 			right: Vec3::new(0.0, 0.0, 0.0),
 			up_dir: Vec3::new(0.0, 1.0, 0.0),
 			pitch: 0.0,
@@ -28,23 +29,18 @@ impl Camera {
 		camera
 	}
 
-	pub fn transform_bool(
-		&mut self,
-		forward: bool,
-		backward: bool,
-		left: bool,
-		right: bool,
-		up: bool,
-		down: bool,
-		speed: f32,
-	) {
-		let z = (backward as u32 as f32) * -1.0 + (forward as u32 as f32);
-		let x = (left as u32 as f32) * -1.0 + (right as u32 as f32);
-		let y = (down as u32 as f32) * -1.0 + (up as u32 as f32);
-		self.transform(Vec3::new(x * speed, y * speed, z * speed));
+	pub fn set_pos(&mut self, pos: Vec3<f32>) {
+		self.pos = pos;
 	}
 
-	pub fn transform(&mut self, off: Vec3) {
+	pub fn set_rot(&mut self, yaw: f32, pitch: f32) {
+		self.yaw = yaw;
+		self.pitch = pitch;
+
+		self.pitch = self.pitch.clamp(-89.5, 89.5);
+	}
+
+	pub fn transform(&mut self, off: Vec3<f32>) {
 		self.pos += Vec3::new(self.right.x, 0.0, self.right.z) * off.x;
 		self.pos.y += off.y;
 		self.pos += Vec3::new(self.face_dir.x, 0.0, self.face_dir.z).normalized() * off.z;
@@ -52,7 +48,7 @@ impl Camera {
 
 	pub fn rotate(&mut self, x: f32, y: f32) {
 		self.yaw += x * 0.1;
-		self.pitch -= y * 0.1;
+		self.pitch += y * 0.1;
 
 		self.pitch = self.pitch.clamp(-89.5, 89.5);
 	}
@@ -68,12 +64,13 @@ impl Camera {
 		self.up_dir = self.right.cross(self.face_dir).normalized();
 	}
 
-	pub fn view_matrix(&self) -> Mat4 {
-		Mat4::look_at(self.pos, self.pos + self.face_dir, self.up_dir)
+	pub fn view_matrix(&self) -> Mat4<f32> {
+		Mat4::look_at_lh(self.pos, self.pos + self.face_dir, self.up_dir)
 	}
 
-	pub fn proj_matrix(&self) -> Mat4 {
-		ultraviolet::projection::rh_yup::perspective_gl(self.fov, self.aspect, 0.1, 1000.0)
+	pub fn proj_matrix(&self) -> Mat4<f32> {
+		// ultraviolet::projection::rh_yup::perspective_gl(self.fov, self.aspect, 0.1, 1000.0)
+		vek::Mat4::perspective_fov_rh_zo(self.fov, self.aspect, 1.0, 0.1, 1000.0)
 	}
 
 	pub fn set_aspect_ratio(&mut self, aspect: f32) {
